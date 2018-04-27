@@ -15,15 +15,17 @@ class App extends Component {
     this.startTimer = this.startTimer.bind(this);
   }
 
-  pausePlay(pause) {
-    this.setState({ paused: pause ? pause : !this.state.paused });
+  pausePlay() {
+    this.setState({ paused: !this.state.paused });
   }
 
   startTimer() {
     this.setState({ running: true, paused: false });
   }
 
-  endTimer() {}
+  endTimer() {
+    this.setState({ running: false });
+  }
 
   renderCircle(running, paused) {
     if (!running) {
