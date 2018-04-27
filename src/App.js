@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Button from 'antd/lib/button';
 import './App.css';
 
+import Header from './Header';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,12 @@ class App extends Component {
 
   render() {
     const { running, paused } = this.state;
-    return <div className="App">{this.renderCircle(running, paused)}</div>;
+    return (
+    <div className="App">
+    <Header />
+    {this.renderCircle(running, paused)}
+    </div>
+  );
   }
 }
 
