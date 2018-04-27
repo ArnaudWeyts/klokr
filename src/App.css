@@ -3,7 +3,7 @@
 .App {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   height: 100vh;
   flex-direction: column;
 }
@@ -34,4 +34,17 @@
 .circle-icon {
   color: #fd46f5;
   font-size: 100px;
+}
+
+.duration {
+  width: 50vw;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.duration h2 {
+  font-size: 90px;
 }

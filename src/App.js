@@ -3,7 +3,6 @@ import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';
 
 import './App.css';
-import { secToHHMMSS } from './utils';
 
 momentDurationFormatSetup(moment);
 
@@ -15,7 +14,6 @@ class App extends Component {
       running: false,
       paused: true,
       timer: null,
-      timeString: '',
       counter: 0
     };
 
@@ -37,17 +35,17 @@ class App extends Component {
   }
 
   endTimer() {
-    this.setState({ running: false, counter: 0, timeString: '' });
+    this.setState({ running: false, counter: 0 });
     clearInterval(this.state.timer);
   }
 
   tick() {
+    console.log('start');
     if (this.state.paused) {
       return;
     }
     this.setState({
-      counter: this.state.counter + 1,
-      timeString: secToHHMMSS(this.state.counter + 1)
+      counter: this.state.counter + 1
     });
   }
 
@@ -89,8 +87,12 @@ class App extends Component {
     return (
       <div className="App">
         {this.renderCircle(running, paused)}
-        <div>
-          <h2>{moment.duration(counter, 'seconds').format('h:m:s')}</h2>
+        <div className="duration">
+          <h2>
+            {moment
+              .duration(counter, 'seconds')
+              .format('hh:mm:ss', { trim: false })}
+          </h2>
         </div>
       </div>
     );
