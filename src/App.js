@@ -1,20 +1,66 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Button from 'antd/lib/button';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      running: false,
+      paused: true
+    };
+
+    this.pausePlay = this.pausePlay.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+  }
+
+  pausePlay(pause) {
+    this.setState({ paused: pause ? pause : !this.state.paused });
+  }
+
+  startTimer() {
+    this.setState({ running: true, paused: false });
+  }
+
+  endTimer() {}
+
+  renderCircle(running, paused) {
+    if (!running) {
+      return (
+        <div className="circle" onClick={this.startTimer}>
+          <i className="circle-icon material-icons">play_arrow</i>
+        </div>
+      );
+    }
+    if (paused) {
+      return (
+        <div className="circle-collection">
+          <div className="circle circle-small" onClick={this.pausePlay}>
+            <i className="circle-icon material-icons">play_arrow</i>
+          </div>
+          <div
+            className="circle circle-small"
+            onClick={() => {
+              this.endTimer();
+            }}
+          >
+            <i className="circle-icon material-icons">stop</i>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="circle" onClick={this.pausePlay}>
+          <i className="circle-icon material-icons">pause</i>
+        </div>
+      );
+    }
+  }
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+    const { running, paused } = this.state;
+    return <div className="App">{this.renderCircle(running, paused)}</div>;
   }
 }
 
