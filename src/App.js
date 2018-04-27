@@ -4,8 +4,9 @@ import momentDurationFormatSetup from 'moment-duration-format';
 
 import './App.css';
 
-momentDurationFormatSetup(moment);
 import Header from './Header';
+
+momentDurationFormatSetup(moment);
 
 class App extends Component {
   constructor(props) {
@@ -41,7 +42,6 @@ class App extends Component {
   }
 
   tick() {
-    console.log('start');
     if (this.state.paused) {
       return;
     }
@@ -88,7 +88,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        {this.renderCircle(running, paused)}
+        <div className="timer">{this.renderCircle(running, paused)}</div>
         <div className="duration">
           <h2>
             {moment
