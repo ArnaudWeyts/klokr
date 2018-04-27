@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import Button from 'antd/lib/button';
+import moment from 'moment';
+import momentDurationFormatSetup from 'moment-duration-format';
+
 import './App.css';
+import { secToHHMMSS } from './utils';
+
+momentDurationFormatSetup(moment);
 
 class App extends Component {
   constructor(props) {
@@ -8,11 +13,15 @@ class App extends Component {
 
     this.state = {
       running: false,
-      paused: true
+      paused: true,
+      timer: null,
+      timeString: '',
+      counter: 0
     };
 
     this.pausePlay = this.pausePlay.bind(this);
     this.startTimer = this.startTimer.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   pausePlay() {
@@ -20,11 +29,26 @@ class App extends Component {
   }
 
   startTimer() {
-    this.setState({ running: true, paused: false });
+    this.setState({
+      running: true,
+      paused: false,
+      timer: setInterval(this.tick, 1000)
+    });
   }
 
   endTimer() {
-    this.setState({ running: false });
+    this.setState({ running: false, counter: 0, timeString: '' });
+    clearInterval(this.state.timer);
+  }
+
+  tick() {
+    if (this.state.paused) {
+      return;
+    }
+    this.setState({
+      counter: this.state.counter + 1,
+      timeString: secToHHMMSS(this.state.counter + 1)
+    });
   }
 
   renderCircle(running, paused) {
@@ -61,8 +85,15 @@ class App extends Component {
   }
 
   render() {
-    const { running, paused } = this.state;
-    return <div className="App">{this.renderCircle(running, paused)}</div>;
+    const { running, paused, counter } = this.state;
+    return (
+      <div className="App">
+        {this.renderCircle(running, paused)}
+        <div>
+          <h2>{moment.duration(counter, 'seconds').format('h:m:s')}</h2>
+        </div>
+      </div>
+    );
   }
 }
 
