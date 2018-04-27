@@ -3,20 +3,27 @@
 .App {
   display: flex;
   align-items: center;
-  justify-content: center;
   height: 100vh;
+  flex-direction: column;
+}
+
+.timer {
+  margin-top: 10%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .circle-collection {
   display: flex;
   justify-content: space-around;
-  width: 60%;
 }
 
 .circle {
   cursor: pointer;
-  height: 300px;
-  width: 300px;
+  height: 50vw;
+  width: 50vw;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -26,11 +33,25 @@
 }
 
 .circle-small {
-  height: 150px;
-  width: 150px;
+  height: 30vw;
+  width: 30vw;
+  margin: 20px;
 }
 
 .circle-icon {
   color: #fd46f5;
   font-size: 100px;
+}
+
+.duration {
+  width: 50vw;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.duration h2 {
+  font-size: 90px;
 }
