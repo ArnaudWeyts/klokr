@@ -28,6 +28,7 @@ class App extends Component {
     this.pausePlay = this.pausePlay.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.tick = this.tick.bind(this);
+    this.routeToHome = this.routeToHome.bind(this);
   }
 
   pausePlay() {
@@ -104,6 +105,10 @@ class App extends Component {
     this.setState({ page: 'checkout' });
   }
 
+  routeToHome() {
+    this.setState({ page: 'app' });
+  }
+
   render() {
     const { running, paused, counter, page, cost, hours } = this.state;
     return (
@@ -123,7 +128,9 @@ class App extends Component {
         ) : (
           ''
         )}
-        {page === 'checkout' && <Checkout hours={hours} cost={cost} />}
+        {page === 'checkout' && (
+          <Checkout hours={hours} cost={cost} goToHome={this.routeToHome} />
+        )}
       </div>
     );
   }
