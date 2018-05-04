@@ -44,7 +44,7 @@
 }
 
 .duration {
-  width: 50vw;
+  /* width: 50vw; */
   height: 25%;
   display: flex;
   justify-content: center;

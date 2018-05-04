@@ -16,7 +16,8 @@ class App extends Component {
       running: false,
       paused: true,
       timer: null,
-      counter: 0
+      counter: 0,
+      page: 'app'
     };
 
     this.pausePlay = this.pausePlay.bind(this);
@@ -83,19 +84,28 @@ class App extends Component {
     }
   }
 
+  routeToSettingsPage() {
+    this.setState({page: 'settings'})
+  }
+
   render() {
     const { running, paused, counter } = this.state;
     return (
       <div className="App">
-        <Header />
-        <div className="timer">{this.renderCircle(running, paused)}</div>
-        <div className="duration">
-          <h2>
-            {moment
-              .duration(counter, 'seconds')
-              .format('hh:mm:ss', { trim: false })}
-          </h2>
-        </div>
+        <Header routeToSettingsPage={this.routeToSettingsPage}/>
+        {
+          this.state.page === 'app' ? 
+          <div style={{'height': '100%'}}>
+            <div className="timer">{this.renderCircle(running, paused)}</div>
+            <div className="duration">
+              <h2>
+                {moment
+                  .duration(counter, 'seconds')
+                  .format('hh:mm:ss', { trim: false })}
+              </h2>
+            </div>
+          </div> : ''
+        }
       </div>
     );
   }
