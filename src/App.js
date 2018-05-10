@@ -153,7 +153,7 @@ class App extends Component {
           routeToSettingsPage={this.routeToSettingsPage}
         />
         {page === 'app' && (
-          <div style={{ height: '100%' }}>
+          <div style={{ height: '90vh' }}>
             <div className="timer">{this.renderCircle(running, paused)}</div>
             <div className="duration">
               <h2>

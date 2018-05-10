@@ -33,7 +33,7 @@ class Settings extends Component {
   render() {
     const { company, firstName, lastName, hourlyWage, currency } = this.state;
     return (
-      <div style={{ height: '90%', marginTop: '10%' }}>
+      <div>
         <div
           style={{
             display: 'flex',
