@@ -18,13 +18,20 @@ class App extends Component {
       paused: true,
       timer: null,
       counter: 0,
-      page: 'app'
+      page: 'settings',
+      settings: {}
     };
 
     this.pausePlay = this.pausePlay.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.tick = this.tick.bind(this);
     this.routeToSettingsPage = this.routeToSettingsPage.bind(this);
+    this.routeToHomePage = this.routeToHomePage.bind(this);
+    this.saveSettings = this.saveSettings.bind(this);
+  }
+
+  saveSettings(settings) {
+    this.setState({settings: settings})
   }
 
   pausePlay() {
@@ -90,11 +97,15 @@ class App extends Component {
     this.setState({ page: 'settings' });
   }
 
+  routeToHomePage() {
+    this.setState({ page: 'app' });
+  }
+
   render() {
     const { running, paused, counter, page } = this.state;
     return (
       <div className="App">
-        <Header routeToSettingsPage={this.routeToSettingsPage} />
+        <Header routeToHomePage={this.routeToHomePage} routeToSettingsPage={this.routeToSettingsPage} />
         {page === 'app' && (
           <div style={{ height: '100%' }}>
             <div className="timer">{this.renderCircle(running, paused)}</div>
@@ -107,7 +118,7 @@ class App extends Component {
             </div>
           </div>
         )}
-        {page === 'settings' && <Settings />}
+        {page === 'settings' && <Settings saveSettings={this.saveSettings} routeToHomePage={this.routeToHomePage}/>}
       </div>
     );
   }

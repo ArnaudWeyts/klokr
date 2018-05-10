@@ -9,6 +9,31 @@ const inputItem = {
 };
 
 class Settings extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      company: '',
+      firstName: '',
+      lastName: '',
+      hourlyWage: '',
+      currency: ''
+    };
+
+    this.onSave = this.onSave.bind(this);
+  }
+
+  onSave() {
+    this.props.saveSettings({
+      company: this.state.company,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      hourlyWage: this.state.hourlyWage,
+      currency: this.state.currency
+    })
+    this.props.routeToHomePage()
+  }
+
   render() {
     return (
       <div style={{ height: '90%', marginTop: '10%' }}>
@@ -23,23 +48,23 @@ class Settings extends Component {
         >
           <div style={inputItem}>
             <label htmlFor="company">Company</label>
-            <input id="company" type="text" />
+            <input onChange={(e) => {this.setState({company: e.target.value})}} id="company" type="text" />
           </div>
           <div style={inputItem}>
             <label htmlFor="firstname">First name</label>
-            <input id="firstname" type="text" />
+            <input onChange={(e) => {this.setState({firstName: e.target.value})}} id="firstname" type="text" />
           </div>
           <div style={inputItem}>
             <label htmlFor="lastname">Last name</label>
-            <input id="lastname" type="text" />
+            <input onChange={(e) => {this.setState({lastName: e.target.value})}} id="lastname" type="text" />
           </div>
           <div style={inputItem}>
             <label htmlFor="wage">Hourly wage</label>
-            <input id="wage" type="text" />
+            <input onChange={(e) => {this.setState({hourlyWage: e.target.value})}} id="wage" type="text" />
           </div>
           <div style={inputItem}>
             <label htmlFor="currency">Currency</label>
-            <input id="currency" type="text" />
+            <input onChange={(e) => {this.setState({currency: e.target.value})}} id="currency" type="text" />
           </div>
         </div>
         <div
@@ -50,7 +75,7 @@ class Settings extends Component {
             height: '40%'
           }}
         >
-          <button>Save</button>
+          <button onClick={this.onSave}>Save</button>
         </div>
       </div>
     );

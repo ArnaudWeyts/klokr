@@ -21,6 +21,7 @@ class Header extends Component {
             lineHeight: '100%',
             fontSize: '55px'
           }}
+          onClick={this.props.routeToHomePage}
         >
           <i>Klokr</i>
         </h1>
