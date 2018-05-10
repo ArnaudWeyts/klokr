@@ -9,6 +9,8 @@ import Settings from './Settings';
 
 import Checkout from './Checkout';
 
+import { saveState, loadState } from './localStorage';
+
 momentDurationFormatSetup(moment);
 
 class App extends Component {
@@ -40,8 +42,17 @@ class App extends Component {
     this.saveSettings = this.saveSettings.bind(this);
   }
 
+  componentDidMount() {
+    const settings = loadState();
+
+    if (settings) {
+      this.setState({ settings });
+    }
+  }
+
   saveSettings(settings) {
     this.setState({ settings: settings });
+    saveState(settings);
   }
 
   pausePlay() {
