@@ -5,6 +5,7 @@ import momentDurationFormatSetup from 'moment-duration-format';
 import './App.css';
 
 import Header from './Header';
+import Settings from './Settings';
 
 import Checkout from './Checkout';
 
@@ -20,15 +21,27 @@ class App extends Component {
       timer: null,
       counter: 0,
       page: 'app',
-      costHour: 25,
       hours: 0,
-      cost: 0
+      cost: 0,
+      settings: {
+        company: '',
+        firstName: '',
+        lastName: '',
+        currency: '€',
+        hourlyWage: 15
+      }
     };
 
     this.pausePlay = this.pausePlay.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.tick = this.tick.bind(this);
-    this.routeToHome = this.routeToHome.bind(this);
+    this.routeToSettingsPage = this.routeToSettingsPage.bind(this);
+    this.routeToHomePage = this.routeToHomePage.bind(this);
+    this.saveSettings = this.saveSettings.bind(this);
+  }
+
+  saveSettings(settings) {
+    this.setState({ settings: settings });
   }
 
   pausePlay() {
@@ -44,13 +57,16 @@ class App extends Component {
   }
 
   endTimer() {
-    const { counter, costHour } = this.state;
+    const {
+      counter,
+      settings: { hourlyWage }
+    } = this.state;
     this.setState({
       running: false,
       counter: 0,
       page: 'checkout',
       hours: Math.ceil(counter / 60 / 60),
-      cost: Math.ceil(counter / 60 / 60) * costHour
+      cost: Math.ceil(counter / 60 / 60) * hourlyWage
     });
     clearInterval(this.state.timer);
   }
@@ -105,16 +121,27 @@ class App extends Component {
     this.setState({ page: 'checkout' });
   }
 
-  routeToHome() {
+  routeToHomePage() {
     this.setState({ page: 'app' });
   }
 
   render() {
-    const { running, paused, counter, page, cost, hours } = this.state;
+    const {
+      running,
+      paused,
+      counter,
+      page,
+      cost,
+      settings,
+      hours
+    } = this.state;
     return (
       <div className="App">
-        <Header routeToSettingsPage={this.routeToSettingsPage} />
-        {this.state.page === 'app' ? (
+        <Header
+          routeToHomePage={this.routeToHomePage}
+          routeToSettingsPage={this.routeToSettingsPage}
+        />
+        {page === 'app' && (
           <div style={{ height: '100%' }}>
             <div className="timer">{this.renderCircle(running, paused)}</div>
             <div className="duration">
@@ -125,11 +152,21 @@ class App extends Component {
               </h2>
             </div>
           </div>
-        ) : (
-          ''
         )}
         {page === 'checkout' && (
-          <Checkout hours={hours} cost={cost} goToHome={this.routeToHome} />
+          <Checkout
+            hours={hours}
+            cost={cost}
+            currency={settings.currency}
+            goToHome={this.routeToHomePage}
+          />
+        )}
+        {page === 'settings' && (
+          <Settings
+            saveSettings={this.saveSettings}
+            routeToHomePage={this.routeToHomePage}
+            settings={settings}
+          />
         )}
       </div>
     );

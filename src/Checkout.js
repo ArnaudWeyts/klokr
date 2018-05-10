@@ -14,8 +14,12 @@ export default props => {
           justifyContent: 'center'
         }}
       >
-        <h2>I've worked for {props.hours} hours.</h2>
-        <h2>You pay me {props.cost} euro</h2>
+        <h2>
+          I've worked for {props.hours} hour{props.hours > 1 ? 's' : ''}.
+        </h2>
+        <h2>
+          You pay me {props.currency} {props.cost}
+        </h2>
       </div>
       <div
         style={{

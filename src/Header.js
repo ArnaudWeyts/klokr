@@ -19,6 +19,7 @@ class Header extends Component {
             lineHeight: '100%',
             fontSize: '55px'
           }}
+          onClick={this.props.routeToHomePage}
         >
           <i>Klokr</i>
         </h1>
@@ -30,6 +31,7 @@ class Header extends Component {
             right: '20px',
             cursor: 'pointer'
           }}
+          onClick={this.props.routeToSettingsPage}
         >
           settings
         </i>
