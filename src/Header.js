@@ -31,6 +31,7 @@ class Header extends Component {
             top: '20px',
             right: '20px'
           }}
+          onClick={this.props.routeToSettingsPage}
         >
           settings
         </i>
