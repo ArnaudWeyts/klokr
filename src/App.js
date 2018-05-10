@@ -6,6 +6,8 @@ import './App.css';
 
 import Header from './Header';
 
+import Checkout from './Checkout';
+
 momentDurationFormatSetup(moment);
 
 class App extends Component {
@@ -16,12 +18,17 @@ class App extends Component {
       running: false,
       paused: true,
       timer: null,
-      counter: 0
+      counter: 0,
+      page: 'app',
+      costHour: 25,
+      hours: 0,
+      cost: 0
     };
 
     this.pausePlay = this.pausePlay.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.tick = this.tick.bind(this);
+    this.routeToHome = this.routeToHome.bind(this);
   }
 
   pausePlay() {
@@ -37,7 +44,14 @@ class App extends Component {
   }
 
   endTimer() {
-    this.setState({ running: false, counter: 0 });
+    const { counter, costHour } = this.state;
+    this.setState({
+      running: false,
+      counter: 0,
+      page: 'checkout',
+      hours: Math.ceil(counter / 60 / 60),
+      cost: Math.ceil(counter / 60 / 60) * costHour
+    });
     clearInterval(this.state.timer);
   }
 
@@ -83,19 +97,40 @@ class App extends Component {
     }
   }
 
+  routeToSettingsPage() {
+    this.setState({ page: 'settings' });
+  }
+
+  routeToCheckoutPage() {
+    this.setState({ page: 'checkout' });
+  }
+
+  routeToHome() {
+    this.setState({ page: 'app' });
+  }
+
   render() {
-    const { running, paused, counter } = this.state;
+    const { running, paused, counter, page, cost, hours } = this.state;
     return (
       <div className="App">
-        <Header />
-        <div className="timer">{this.renderCircle(running, paused)}</div>
-        <div className="duration">
-          <h2>
-            {moment
-              .duration(counter, 'seconds')
-              .format('hh:mm:ss', { trim: false })}
-          </h2>
-        </div>
+        <Header routeToSettingsPage={this.routeToSettingsPage} />
+        {this.state.page === 'app' ? (
+          <div style={{ height: '100%' }}>
+            <div className="timer">{this.renderCircle(running, paused)}</div>
+            <div className="duration">
+              <h2>
+                {moment
+                  .duration(counter, 'seconds')
+                  .format('hh:mm:ss', { trim: false })}
+              </h2>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
+        {page === 'checkout' && (
+          <Checkout hours={hours} cost={cost} goToHome={this.routeToHome} />
+        )}
       </div>
     );
   }

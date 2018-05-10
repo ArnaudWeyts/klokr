@@ -6,10 +6,8 @@ class Header extends Component {
     return (
       <div
         style={{
-          position: 'absolute',
           width: '100%',
-          height: '10%',
-          top: '10px'
+          height: '10vh'
         }}
       >
         <h1
@@ -29,7 +27,8 @@ class Header extends Component {
           style={{
             position: 'absolute',
             top: '20px',
-            right: '20px'
+            right: '20px',
+            cursor: 'pointer'
           }}
         >
           settings
