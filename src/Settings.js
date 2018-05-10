@@ -30,11 +30,18 @@ class Settings extends Component {
       lastName: this.state.lastName,
       hourlyWage: this.state.hourlyWage,
       currency: this.state.currency
-    })
-    this.props.routeToHomePage()
+    });
+    this.props.routeToHomePage();
   }
 
   render() {
+    const {
+      company,
+      firstName,
+      lastName,
+      hourlyWage,
+      currency
+    } = this.props.settings;
     return (
       <div style={{ height: '90%', marginTop: '10%' }}>
         <div
@@ -48,23 +55,58 @@ class Settings extends Component {
         >
           <div style={inputItem}>
             <label htmlFor="company">Company</label>
-            <input onChange={(e) => {this.setState({company: e.target.value})}} id="company" type="text" />
+            <input
+              onChange={e => {
+                this.setState({ company: e.target.value });
+              }}
+              value={company || ''}
+              id="company"
+              type="text"
+            />
           </div>
           <div style={inputItem}>
             <label htmlFor="firstname">First name</label>
-            <input onChange={(e) => {this.setState({firstName: e.target.value})}} id="firstname" type="text" />
+            <input
+              onChange={e => {
+                this.setState({ firstName: e.target.value });
+              }}
+              value={firstName || ''}
+              id="firstname"
+              type="text"
+            />
           </div>
           <div style={inputItem}>
             <label htmlFor="lastname">Last name</label>
-            <input onChange={(e) => {this.setState({lastName: e.target.value})}} id="lastname" type="text" />
+            <input
+              onChange={e => {
+                this.setState({ lastName: e.target.value });
+              }}
+              value={lastName || ''}
+              id="lastname"
+              type="text"
+            />
           </div>
           <div style={inputItem}>
             <label htmlFor="wage">Hourly wage</label>
-            <input onChange={(e) => {this.setState({hourlyWage: e.target.value})}} id="wage" type="text" />
+            <input
+              onChange={e => {
+                this.setState({ hourlyWage: e.target.value });
+              }}
+              value={hourlyWage}
+              id="wage"
+              type="text"
+            />
           </div>
           <div style={inputItem}>
             <label htmlFor="currency">Currency</label>
-            <input onChange={(e) => {this.setState({currency: e.target.value})}} id="currency" type="text" />
+            <input
+              onChange={e => {
+                this.setState({ currency: e.target.value });
+              }}
+              value={currency}
+              id="currency"
+              type="text"
+            />
           </div>
         </div>
         <div

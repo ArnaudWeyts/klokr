@@ -19,7 +19,7 @@ class App extends Component {
       timer: null,
       counter: 0,
       page: 'settings',
-      settings: {}
+      settings: { currency: '€', hourlyWage: 15 }
     };
 
     this.pausePlay = this.pausePlay.bind(this);
@@ -31,7 +31,7 @@ class App extends Component {
   }
 
   saveSettings(settings) {
-    this.setState({settings: settings})
+    this.setState({ settings: settings });
   }
 
   pausePlay() {
@@ -102,10 +102,13 @@ class App extends Component {
   }
 
   render() {
-    const { running, paused, counter, page } = this.state;
+    const { running, paused, counter, page, settings } = this.state;
     return (
       <div className="App">
-        <Header routeToHomePage={this.routeToHomePage} routeToSettingsPage={this.routeToSettingsPage} />
+        <Header
+          routeToHomePage={this.routeToHomePage}
+          routeToSettingsPage={this.routeToSettingsPage}
+        />
         {page === 'app' && (
           <div style={{ height: '100%' }}>
             <div className="timer">{this.renderCircle(running, paused)}</div>
@@ -118,7 +121,13 @@ class App extends Component {
             </div>
           </div>
         )}
-        {page === 'settings' && <Settings saveSettings={this.saveSettings} routeToHomePage={this.routeToHomePage}/>}
+        {page === 'settings' && (
+          <Settings
+            saveSettings={this.saveSettings}
+            routeToHomePage={this.routeToHomePage}
+            settings={settings}
+          />
+        )}
       </div>
     );
   }
