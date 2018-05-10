@@ -13,11 +13,7 @@ class Settings extends Component {
     super(props);
 
     this.state = {
-      company: '',
-      firstName: '',
-      lastName: '',
-      hourlyWage: '',
-      currency: ''
+      ...props.settings
     };
 
     this.onSave = this.onSave.bind(this);
@@ -35,13 +31,7 @@ class Settings extends Component {
   }
 
   render() {
-    const {
-      company,
-      firstName,
-      lastName,
-      hourlyWage,
-      currency
-    } = this.props.settings;
+    const { company, firstName, lastName, hourlyWage, currency } = this.state;
     return (
       <div style={{ height: '90%', marginTop: '10%' }}>
         <div

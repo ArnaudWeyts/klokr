@@ -19,7 +19,13 @@ class App extends Component {
       timer: null,
       counter: 0,
       page: 'settings',
-      settings: { currency: '€', hourlyWage: 15 }
+      settings: {
+        company: '',
+        firstName: '',
+        lastName: '',
+        currency: '€',
+        hourlyWage: 15
+      }
     };
 
     this.pausePlay = this.pausePlay.bind(this);
