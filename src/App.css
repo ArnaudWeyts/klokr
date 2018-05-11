@@ -65,3 +65,10 @@ input {
   border-color: #fd46f5;
   width: 100%;
 }
+
+@media (min-width: 900px) {
+  .circle {
+    width: 20vw;
+    height: 20vw;
+  }
+}

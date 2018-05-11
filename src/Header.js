@@ -17,7 +17,8 @@ class Header extends Component {
             textAlign: 'center',
             verticalAlign: 'center',
             lineHeight: '100%',
-            fontSize: '55px'
+            fontSize: '55px',
+            cursor: 'pointer'
           }}
           onClick={this.props.routeToHomePage}
         >
